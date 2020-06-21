@@ -73,20 +73,9 @@ function constructDiv(ratingsDiv, objIdx) {
 	 
 	 
 	 $("#searchContainerResultGrid").append("<div class=\"clearfix\">&nbsp;&nbsp</div>");
-	 console.log(objIdx.latitude);
-	 console.log(objIdx.longitude);
-	 initMap(objIdx.latitude, objIdx.longitude);
-	 
+
+
 }
 
 
 
-function initMap(latVal,longVal) {
-	  // The location of Uluru
-	  var uluru = {lat: parseFloat(latVal), lng: parseFloat(longVal)};
-	  // The map, centered at Uluru
-	  var map = new google.maps.Map(
-	      document.getElementById('map'), {zoom: 18, center: uluru});
-	  // The marker, positioned at Uluru
-	  var marker = new google.maps.Marker({position: uluru, map: map});
-	}

@@ -175,7 +175,7 @@ function constructDiv(ratingsDiv, objIdx) {
 	 $("#searchContainerResultGrid").append("<div class=\"card\"><div class=\"card-header bg-danger searchResultHeader\">"+objIdx.name+
 			 "</div><div class=\"card-body\"><div class=\"fontSize20\"><i class=\"material-icons location-icon\">location_on</i>"+objIdx.address+", "+objIdx.city+", "+objIdx.province+", "+objIdx.postalcode+"</div><div>" +
 			 ratingsDiv +
-			 		"<div class=\"bold\">Review(s)</div><div class=\"themeColor\">"+objIdx.reviewUsername+"</div><div>"+objIdx.reviewTitle+"</div><div>"+objIdx.reviewText+"</div><div class=\"clearfix\"><a class=\"float-left padding-top-15\" target=\"_blank\" href=\"hotel?id="+objIdx.id+"\">Google Map</a><button type=\"button\" class=\"btn btn-success float-right\" onclick=\"booknow("+objIdx.id+")\">Book Now</button></div></div> </div>");
+			 		"<div class=\"bold\">Review(s)</div><div class=\"themeColor\">"+objIdx.reviewUsername+"</div><div>"+objIdx.reviewTitle+"</div><div>"+objIdx.reviewText+"</div><div class=\"clearfix\"><button type=\"button\" class=\"btn btn-success float-right\" onclick=\"booknow("+objIdx.id+")\">Book Now</button></div></div> </div>");
 	 
 	 $("#searchContainerResultGrid").append("<div class=\"clearfix\">&nbsp;&nbsp</div>");
 	 

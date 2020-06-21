@@ -6,6 +6,15 @@ public class Booking {
     private String hotelId;
     private String rooms;
     private String selectedDate;
+    private String hotelName;
+
+    public String getHotelName() {
+        return hotelName;
+    }
+
+    public void setHotelName(String hotelName) {
+        this.hotelName = hotelName;
+    }
 
     public String getId() {
         return id;

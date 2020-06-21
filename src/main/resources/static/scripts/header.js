@@ -16,8 +16,11 @@ if(token!=null && token!="") {
 		$("#login").hide();
 		$("#register").hide();
 		$("#logout").show();
+		$("#mybookings").show();
 } else {
 	$("#login").show();
 	$("#register").show();
+	$("#mybookings").hide();
 	$("#logout").hide();
+
 }

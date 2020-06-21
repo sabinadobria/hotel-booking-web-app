@@ -50,8 +50,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/search/term").antMatchers("/search/hotels")
 				.antMatchers("/search/hotels/category")
 				.antMatchers("/search/hotels/**").antMatchers("/scripts/**").antMatchers("/styles/**")
-				.antMatchers("/images/**").antMatchers("/login").antMatchers("/bookingpage")
+				.antMatchers("/images/**").antMatchers("/login").antMatchers("/bookingpage").antMatchers("/mybookings")
 				.antMatchers("/logout").antMatchers("/register")
+				.antMatchers("/bookings/*")
 				.antMatchers("/newuser");
 	}
 

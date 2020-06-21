@@ -31,6 +31,11 @@ public class AppController {
 	public String bookingpage() {
 		return "bookingpage";
 	}
+
+	@RequestMapping(value = "/mybookings", method = RequestMethod.GET)
+	public String mybookings() {
+		return "mybookings";
+	}
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout() {
