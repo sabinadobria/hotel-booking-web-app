@@ -13,6 +13,9 @@ public interface HotelServiceDAO {
 
 	public Category getCategories();
 
+	public void deleteBooking(String id);
+	public void updateBooking(String id, String rooms, String date);
+
 	public List<String> searchTerm(String term);
 
 	public List<Booking> searchBookingByUserId(String id);

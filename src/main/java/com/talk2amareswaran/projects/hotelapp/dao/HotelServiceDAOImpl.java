@@ -91,6 +91,7 @@ public class HotelServiceDAOImpl implements HotelServiceDAO {
 			hotel.setReviewText((String) row.get("review_text"));
 			hotel.setReviewTitle((String) row.get("review_title"));
 			hotel.setReviewUsername((String) row.get("review_username"));
+			hotel.setPrice((String) row.get("price"));
 			return hotel;
 		}).forEach((ss) -> {
 			if (ss != null) {
@@ -225,7 +226,7 @@ public class HotelServiceDAOImpl implements HotelServiceDAO {
 
 	@Override
 	public List<Booking> searchBookingByUserId(String id) {
-		Collection<Map<String, Object>> rows = jdbcTemplate.queryForList("select * from booking where id=? ", new Object[] {
+		Collection<Map<String, Object>> rows = jdbcTemplate.queryForList("select * from booking where user_id=? ", new Object[] {
 				id
 		});
 		List<Booking> searchList = new ArrayList<>();
@@ -236,6 +237,7 @@ public class HotelServiceDAOImpl implements HotelServiceDAO {
 			booking.setRooms((String) row.get("rooms"));
 			booking.setSelectedDate((String) row.get("selectdate"));
 			booking.setUserId(String.valueOf(row.get("user_id")));
+			booking.setHotelName(getHotelName(String.valueOf(row.get("hotel_id"))));
 
 			return booking;
 		}).forEach((ss) -> {
@@ -243,9 +245,28 @@ public class HotelServiceDAOImpl implements HotelServiceDAO {
 				searchList.add(ss);
 			}
 		});
+
 		return searchList;
 	}
 
+	public String getHotelName (String id) {
+		Collection<Map<String, Object>> rows = jdbcTemplate.queryForList("select * from hotel where id=? ", new Object[] {
+				id
+		});
+
+		List<Booking> searchList = new ArrayList<>();
+		rows.stream().map((row) -> {
+			Booking booking = new Booking();
+			booking.setHotelName((String) row.get("name"));
+
+			return booking;
+		}).forEach((ss) -> {
+			if (ss != null) {
+				searchList.add(ss);
+			}
+		});
+		return searchList.get(0).getHotelName();
+	}
 	@Override
 	public void creteBooking(String rooms, String id, String date, String user_id) {
 		jdbcTemplate.update("insert into booking (user_id, hotel_id, rooms, selectdate) values (?,?,?,?)",
@@ -253,6 +274,18 @@ public class HotelServiceDAOImpl implements HotelServiceDAO {
 		
 	}
 
+	@Override
+	public void deleteBooking(String id) {
+		jdbcTemplate.update("delete from booking where id=?", new Object[] { id });
+
+	}
+
+	@Override
+	public void updateBooking(String id, String rooms, String date) {
+		jdbcTemplate.update("update booking set rooms = ?, selectdate = ? where id = ?",
+				new Object[] { rooms, date, id });
+
+	}
 	@Override
 	public void createUser(String fname, String lname, String emailTxt, String pwd) {
 		jdbcTemplate.update("insert into users (first_name, last_name, email_id, password) values (?,?,?,?)",
