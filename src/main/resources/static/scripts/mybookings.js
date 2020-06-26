@@ -66,19 +66,22 @@ function getCookie(cname) {
 
 
 function constructDiv(objIdx) {
+console.log("objdid", objIdx)
 	 $("#searchContainerResultGrid")
 	 .append("<div class=\"card\"><div class=\"card-header\"><div class=\"bold\"></div>"+
-	 "<div class=\"bold\">Hotel: "+objIdx.hotelName+"</div>"+
+	 "<form id=\"printJS-form"+objIdx.id+"\"><div class=\"bold\">Hotel: "+objIdx.hotelName+"</div>"+
 	 "<div>Number of rooms: "+objIdx.rooms+"</div>"+
-	 "<div>Selected date: "+objIdx.selectedDate+"</div>"+
+	 "<div>Number of people: "+objIdx.people+"</div>"+
+	 "<div>Selected date: "+objIdx.selectedDate+"  -  "+objIdx.leaveDate+"</div> </form>"+
 
 	 "<div class=\"clearfix\">"+
-	 "<button type=\"button\" class=\"btn btn-success float-right\" id=\"id-edit\" data-toggle=\"modal\" data-id="+objIdx.id+" data-target=\"#exampleModal\">Manage booking</button><div>  </div>"+
 	 "<button type=\"button\" class=\"btn btn-danger float-right \" style=\"margin-right: 10px;\"onclick=\"deleteRez("+objIdx.id+")\">Delete booking</button>"+
+	 "<button type=\"button\" class=\"btn btn-primary float-right \" style=\"margin-right: 10px;\"onclick=\"printJS('printJS-form"+objIdx.id+"', 'html')\">Print booking</button>"+
+	 "<button type=\"button\" class=\"btn btn-success float-right\" style=\"margin-right: 10px;\" id=\"id-edit\" data-toggle=\"modal\" data-rez="+objIdx.id+" data-target=\"#exampleModal\">Manage booking</button><div>  </div>"+
 	 "</div></div> </div>");
 
      	 $("#searchContainerResultGrid").append("<div class=\"clearfix\">&nbsp;&nbsp</div>");
-
+    console.log("id load", $("#id-edit").attr("data-rez"));
 
 }
 
@@ -116,6 +119,7 @@ function deleteRez(id) {
 }
 
 function edit(id) {
+console.log("id edit", id)
  $("#searchContainerResultGrid")
  	 .append("<div class=\"modal\" tabindex=\"-1\" role=\"dialog\"><div class=\"modal-dialog\" role=\"document\">"+
  +"<div class=\"modal-content\"><div class=\"modal-header\"><h5 class=\"modal-title\">Modal title</h5>" +
@@ -134,8 +138,11 @@ function edit(id) {
 function managebook() {
 
 	var rooms = $("#id-rooms").val();
+	var people = $("#id-people").val();
 	var date = $("#id-date").val();
-	var id = $("#id-edit").attr("data-id")
+	var leavedate = $("#id-leavedate").val();
+	var id = $("#id-edit").attr("data-rez")
+	console.log("id", id);
 
 
 //	console.log("selectedVal", selectedVal);
@@ -143,7 +150,7 @@ function managebook() {
 //				console.log("mybookid", myBookId);
 
 
-	  if(date==null || date=="")
+	  if(date==null || date=="" || leavedate==null || leavedate=="")
 		  {
 		  $(".alert-danger").html("Please choose Date");
 			$(".alert-danger").show();
@@ -152,7 +159,9 @@ function managebook() {
 	    var formData = {
 	            'id': id,
 	            'rooms': rooms,
-	            'date': date
+	            'people': people,
+	            'date': date,
+	            'leavedate': leavedate
 	        };
 	  $.ajax({
 	        type: "POST",

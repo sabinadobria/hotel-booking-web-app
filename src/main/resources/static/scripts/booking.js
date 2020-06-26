@@ -86,9 +86,10 @@ function constructDiv(ratingsDiv, objIdx) {
 	 $("#searchContainerResultGrid").append("<div class=\"card\"><div class=\"card-header bg-danger searchResultHeader\">"+objIdx.name+
 			 "</div><div class=\"card-body\"><div class=\"fontSize20\"><i class=\"material-icons location-icon\">location_on</i>"+objIdx.address+", "+objIdx.city+", "+objIdx.province+", "+objIdx.postalcode+"</div><div>" +
 			 ratingsDiv +
-			 		"<div class=\"bold\">Review(s)</div><div class=\"themeColor\">"+objIdx.reviewUsername+"</div><div>"+objIdx.reviewTitle+"</div><div>"+objIdx.reviewText+"</div><div class=\"bold\">Country</div><div>"+objIdx.country+"</div><div class=\"bold\">Categories:</div><div>"+objIdx.categories+"</div>" +
+			 		"<div class=\"bold\">Review(s)</div><div class=\"themeColor\">"+objIdx.reviewUsername+"</div><div>"+objIdx.reviewTitle+"</div><div>"+objIdx.reviewText+"</div><div class=\"bold\">Country</div><div>"+objIdx.country+"</div><div class=\"bold\">Price</div><div>"+objIdx.price+"</div><div class=\"bold\">Categories:</div><div>"+objIdx.categories+"</div>" +
 			 				"<div class=\"form-group\"><label for=\"sel1\">Rooms: </label><select style=\"width: 20%;\" class=\"form-control\" id=\"sel1\" name=\"sellist1\"><option value=\"1\">1</option><option value=\"2\">2</option><option value=\"3\">3</option></select></div>" +
-			 				" <div>Date:<br/><input type=\"date\" id=\"bday\"> </div><BR/> <button type=\"button\" class=\"btn btn-success float-left\" onclick=\"booksuccess("+objIdx.id+")\">Book Now</button><BR/>" +
+			 				"<div class=\"form-group\"><label for=\"people1\">Persons: </label><select style=\"width: 20%;\" class=\"form-control\" id=\"people1\" name=\"peoplelist1\"><option value=\"1\">1</option><option value=\"2\">2</option><option value=\"3\">3</option><option value=\"4\">4</option><option value=\"5\">5</option></select></div>" +
+			 				" <div>From:<br/><input type=\"date\" id=\"bday\"> </div><BR/> <div>Until:<br/><input type=\"date\" id=\"lday\"> </div><BR/> <button type=\"button\" class=\"btn btn-success float-left\" onclick=\"booksuccess("+objIdx.id+")\">Book Now</button><BR/>" +
 			 						"<div class=\"clearfix\"><BR/><div id=\"map\"></div></div></div> </div>");
 	 
 	 
@@ -105,8 +106,10 @@ function constructDiv(ratingsDiv, objIdx) {
 
 function booksuccess(id) {
 	var selectedVal = $("#sel1").val();
+	var peopleVal = $("#people1").val();
 	var bday = $("#bday").val();
-	  if(bday==null || bday=="")
+	var lday = $("#lday").val();
+	  if(bday==null || bday=="" || lday==null || lday=="")
 		  {
 		  $(".alert-danger").html("Please choose Date");
 			$(".alert-danger").show();
@@ -115,7 +118,9 @@ function booksuccess(id) {
 	    var formData = {
 	            'id'              : id,
 	            'rooms'             : selectedVal,
-	            'date'             : bday
+	            'people': peopleVal,
+	            'date'             : bday,
+	            'leavedate' : lday
 	        };
 	  $.ajax({
 	        type: "GET",
